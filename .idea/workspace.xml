@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="d6c6a019-a6b3-4234-9077-053dcfed2ca0" name="Изменения" comment="Создание новой папки и основного модуля" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,6 +52,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "ai.playground.ignore.import.keys.banner.in.settings": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
@@ -78,7 +82,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1775258118533</updated>
-      <workItem from="1775258119539" duration="311000" />
+      <workItem from="1775258119539" duration="821000" />
     </task>
     <task id="LOCAL-00001" summary="Создание новой папки и основного модуля">
       <option name="closed" value="true" />
