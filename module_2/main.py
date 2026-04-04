@@ -7,6 +7,6 @@ def run_script():
     driver.get("https://skillbox.ru")
     driver.quit()
 
-if name == 'main':
+if __name__ == '__main__':
     run_script()
     print(0)
