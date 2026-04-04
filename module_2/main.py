@@ -9,3 +9,4 @@ def run_script():
 
 if name == 'main':
     run_script()
+    print(0)

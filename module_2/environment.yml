@@ -1,0 +1,8 @@
+name: python-autotests-basic
+channels:
+- conda-forge
+dependencies:
+- python=3.13
+- requests
+- selenium=4.10
+- webdriver-manager
