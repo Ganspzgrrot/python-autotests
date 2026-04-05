@@ -1,0 +1,11 @@
+name: skillbox
+channels:
+- conda-forge
+dependencies:
+- python=3.13
+- requests=2.26.0
+- selenium=
+- python-chromedriver-binary=98.0.4758.80.0
+- pytest
+- pip:
+   - allure-pytest
