@@ -4,18 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6c6a019-a6b3-4234-9077-053dcfed2ca0" name="Изменения" comment=".">
+    <list default="true" id="d6c6a019-a6b3-4234-9077-053dcfed2ca0" name="Изменения" comment="Настроено локальное окружение, создана структура папок и добавлен базовый тест">
+      <change afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pytest.ini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/tests_placeholders.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/conftest.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/environment.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module_2/script.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_example.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/browser.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/test_set.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_example.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tox.ini" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,6 +89,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\tipzo\Desktop\python-autotests-basic\src\tests" />
       <recent name="C:\Users\tipzo\Desktop\python-autotests-basic" />
       <recent name="C:\Users\tipzo\Desktop\python-autotests-basic\src" />
     </key>
@@ -409,7 +403,7 @@
       <workItem from="1775423701956" duration="475000" />
       <workItem from="1775583809355" duration="4447000" />
       <workItem from="1775592554019" duration="972000" />
-      <workItem from="1775741406803" duration="421000" />
+      <workItem from="1775741406803" duration="2298000" />
     </task>
     <task id="LOCAL-00001" summary="Создание новой папки и основного модуля">
       <option name="closed" value="true" />
@@ -459,7 +453,23 @@
       <option name="project" value="LOCAL" />
       <updated>1775423782649</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Удаление лишних файлов">
+      <option name="closed" value="true" />
+      <created>1775742086862</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1775742086862</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Настроено локальное окружение, создана структура папок и добавлен базовый тест">
+      <option name="closed" value="true" />
+      <created>1775742167783</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1775742167783</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -474,10 +484,12 @@
     <MESSAGE value="добавил двойные нижние подчеркивания в перменную от пайтон name" />
     <MESSAGE value="Файл main.py переименован в script.py" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="Удаление лишних файлов" />
+    <MESSAGE value="Настроено локальное окружение, создана структура папок и добавлен базовый тест" />
+    <option name="LAST_COMMIT_MESSAGE" value="Настроено локальное окружение, создана структура папок и добавлен базовый тест" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/python_autotests_basic$script.coverage" NAME="Результаты покрытия script" MODIFIED="1775310882478" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/module_2" />
-    <SUITE FILE_PATH="coverage/python_autotests_basic$.coverage" NAME="Результаты покрытия " MODIFIED="1775592862024" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/python_autotests_basic$.coverage" NAME="Результаты покрытия " MODIFIED="1775741840208" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
