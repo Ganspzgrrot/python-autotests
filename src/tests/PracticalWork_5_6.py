@@ -33,6 +33,7 @@ class TestPracticalWork56:
         time.sleep(5)
 
     def test_advanched_search_python_repositore(self, driver):  # PASSED
+        driver.maximize_window()
         driver.get('https://github.com/search/advanced')
         actions = ActionChains(driver)
         time.sleep(4)
@@ -42,9 +43,12 @@ class TestPracticalWork56:
         for _ in range(0, 500, 20):
             actions.scroll_by_amount(0, 20).perform(); time.sleep(0.01)
         search_filename = driver.find_element(By.ID, 'search_filename'); search_filename.send_keys('environment.yml'); time.sleep(0.5); search_filename.send_keys(Keys.ENTER); time.sleep(5)
-        results_header = driver.find_element(By.XPATH, "//*[contains(text(), 'results')]"); time.sleep(5)
-        header = results_header.text.lower(); time.sleep(3); count = header.split()[0].replace(',', '').replace('.', ''); count = int(count)
-        assert count > 0
+        star_links = driver.find_elements(By.CSS_SELECTOR, 'a[aria-label*="stars"]')
+        for link in star_links:
+            label_text = link.get_attribute('aria-label')
+            count_str = label_text.split()[0]; count = int(count_str)
+            assert count > 20000
 
         time.sleep(6)
+
 
