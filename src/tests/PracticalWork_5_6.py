@@ -51,4 +51,21 @@ class TestPracticalWork56:
 
         time.sleep(6)
 
+    def test_tab_zwei_DropdownList(self, driver):  # PASSED
+        driver.maximize_window();
+        driver.get('https://skillbox.ru/code/')
+        actions = ActionChains(driver)
+        time.sleep(2)
+
+        driver.find_element(By.XPATH, "//button[contains(@class, 'programs-filter-desktop__tab')]").click(); time.sleep(0.7)
+        driver.find_element(By.XPATH, "//button[contains(@class, 'ui-round-select__field') and contains(., 'Длительность')]").click(); time.sleep(0.7)
+        driver.find_element(By.XPATH, "//li[contains(@class, 'ui-round-select__item') and contains(text(), 'От 6 до 12 мес.')]").click(); time.sleep(0.7)
+        driver.find_element(By.XPATH, "//button[contains(., 'Тематика')]").click(); time.sleep(0.7)
+        driver.find_element(By.XPATH, "//li[contains(@class, 'ui-round-select__item') and contains(., 'Airflow')]").click(); time.sleep(0.7)
+        driver.find_element(By.XPATH, "//button[normalize-space()='Применить']").click(); time.sleep(0.4)
+        for _ in range(0, 137, 10):
+            actions.scroll_by_amount(0, 20).perform()
+            time.sleep(0.01)
+
+        time.sleep(8)
 
