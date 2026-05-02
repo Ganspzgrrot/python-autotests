@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 
 class TestPracticalWork56:
-    def test_issue_search_by_title(self, driver):
+    def test_issue_search_by_title(self, driver): #Кейс №1 PASSED
         driver.get('https://github.com/microsoft/vscode/issues')
         el = driver.find_element(By.ID, 'repository-input')
         time.sleep(2)
@@ -21,7 +21,7 @@ class TestPracticalWork56:
 
         time.sleep(5)
 
-    def test_github_author_filter_bpasero(self, driver):  # PASSED
+    def test_github_author_filter_bpasero(self, driver):  #Кейс №2 PASSED
         driver.get('https://github.com/microsoft/vscode/issues')
         time.sleep(1.4)
 
@@ -32,7 +32,7 @@ class TestPracticalWork56:
 
         time.sleep(5)
 
-    def test_advanched_search_python_repositore(self, driver):  # PASSED
+    def test_advanched_search_python_repositore(self, driver):  #Кейс №3 PASSED
         driver.maximize_window()
         driver.get('https://github.com/search/advanced')
         actions = ActionChains(driver)
@@ -51,8 +51,8 @@ class TestPracticalWork56:
 
         time.sleep(6)
 
-    def test_tab_zwei_DropdownList(self, driver):  # PASSED
-        driver.maximize_window();
+    def test_tab_zwei_DropdownList(self, driver):  #Кейс №4 PASSED
+        driver.maximize_window()
         driver.get('https://skillbox.ru/code/')
         actions = ActionChains(driver)
         time.sleep(2)
@@ -62,10 +62,32 @@ class TestPracticalWork56:
         driver.find_element(By.XPATH, "//li[contains(@class, 'ui-round-select__item') and contains(text(), 'От 6 до 12 мес.')]").click(); time.sleep(0.7)
         driver.find_element(By.XPATH, "//button[contains(., 'Тематика')]").click(); time.sleep(0.7)
         driver.find_element(By.XPATH, "//li[contains(@class, 'ui-round-select__item') and contains(., 'Airflow')]").click(); time.sleep(0.7)
-        driver.find_element(By.XPATH, "//button[normalize-space()='Применить']").click(); time.sleep(0.4)
-        for _ in range(0, 137, 10):
-            actions.scroll_by_amount(0, 20).perform()
-            time.sleep(0.01)
+        driver.find_element(By.XPATH, "//button[normalize-space()='Применить']").click()
+        time.sleep(10)
+
+        courses = driver.find_elements(By.XPATH, "//article[contains(@class, 'product-card-new')]")
+        assert len(courses) > 0, "Ошибка: Карточки не найдены!"
+
+        for course in courses:
+            direction = course.find_element(By.XPATH, ".//span[contains(@class, 'product-card-new__direction')]").text.lower()
+            duration = course.find_element(By.XPATH, ".//li[contains(@class, 'product-card-new__feature')]").text.lower()
+            assert 'профессия' in direction
+            assert 'месяц' in duration
 
         time.sleep(8)
 
+    def test_github_commit_activity_tooltip(self, driver):
+        driver.maximize_window()
+        driver.get('https://github.com/microsoft/vscode/graphs/commit-activity')
+        actions = ActionChains(driver)
+        time.sleep(2)
+
+        el = driver.find_element(By.CSS_SELECTOR, "path.highcharts-point"); time.sleep(0.7)
+        actions.move_to_element(el).perform(); time.sleep(5)
+
+        tooltip = driver.find_element(By.XPATH, "//*[contains(text(), 'commits')]")
+        tooltip_text = tooltip.text.lower()
+        assert 'commits' in tooltip_text
+        assert 'week' in tooltip_text
+
+        time.sleep(3.5)
