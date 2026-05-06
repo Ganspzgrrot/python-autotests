@@ -9,7 +9,6 @@ from selenium.webdriver.common.by import By
 def test_github_search_by_issue_title(driver): #PASSED
     driver.get('https://github.com/microsoft/vscode/issues')
     el = driver.find_element(By.ID, 'repository-input')
-    time.sleep(0.5)
 
     el.send_keys(Keys.CONTROL, 'a')
     el.send_keys(Keys.BACKSPACE)
