@@ -14,7 +14,6 @@ def test_github_search_by_issue_title(driver): #PASSED
     el.send_keys(Keys.BACKSPACE)
     el.send_keys('in:title bug', Keys.ENTER)
 
-
 def test_github_author_filter_bpasero(driver): #PASSED
     driver.get('https://github.com/microsoft/vscode/issues')
 
@@ -24,7 +23,6 @@ def test_github_author_filter_bpasero(driver): #PASSED
     driver.find_element(By.CSS_SELECTOR, "[data-testid='authors-anchor-button']").click()
     driver.find_element(By.CSS_SELECTOR, "[placeholder='Filter authors']").send_keys('bpasero')
     driver.find_element(By.CSS_SELECTOR, "[placeholder='Filter authors']").send_keys(Keys.ENTER)
-
 
 def test_advanched_search_python_repositore(driver): #PASSED
     driver.get('https://github.com/search/advanced')
