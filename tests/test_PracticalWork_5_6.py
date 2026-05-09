@@ -1,7 +1,6 @@
 import time
 from selenium.webdriver.support import expected_conditions as EC
 
-import pytest
 from selenium.webdriver import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
@@ -13,7 +12,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 @allure.story('Валидация выдачи результатов по фильтрам')
 class TestPracticalWork56:
     @allure.title("Поиск Issues по ключевому слову в заголовке ('bug')")
-    def test_issue_search_by_title(self, driver): #Кейс №1 PASSED
+    def test_issue_search_by_title(self, driver):  #Кейс №1 PASSED
         """
         Шаги:
         1.Открыть страницу со списком Issues репозитория Microsoft VS Code на GitHub;
@@ -94,7 +93,6 @@ class TestPracticalWork56:
         """
         driver.maximize_window()
         driver.get('https://skillbox.ru/code/')
-        actions = ActionChains(driver)
 
         driver.find_element(By.XPATH, "//button[contains(@class, 'programs-filter-desktop__tab')]").click()
         driver.find_element(By.XPATH, "//button[contains(@class, 'ui-round-select__field') and contains(., 'Длительность')]").click()
@@ -113,7 +111,7 @@ class TestPracticalWork56:
             assert 'месяц' in duration
 
     @allure.title("Проверка всплывающей подсказки (tooltip) на графике активности коммитов")
-    def test_github_commit_activity_tooltip(self, driver): #Кейс №5 PASSED
+    def test_github_commit_activity_tooltip(self, driver):  #Кейс №5 PASSED
         """
         Шаги:
         1.Открыть страницу статистики активности коммитов (Commit Activity) репозитория VS Code;
