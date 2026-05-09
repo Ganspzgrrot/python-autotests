@@ -6,6 +6,8 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 import allure
 from selenium.webdriver.support.wait import WebDriverWait
+import logging
+logger = logging.getLogger('file')
 
 @allure.feature('Функциональность поиска и фильтрации')
 @allure.story('Валидация выдачи результатов по фильтрам')

@@ -4,6 +4,8 @@ from selenium.webdriver import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
+import logging
+logger = logging.getLogger('file')
 
 @allure.feature('Работа с функционалом сайтов GitHub и Skillbox')
 class TestPracticalWork_4_6:
