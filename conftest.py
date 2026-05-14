@@ -1,3 +1,4 @@
+import allure
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -6,7 +7,6 @@ import logging
 
 logging.config.fileConfig('logging.ini')
 logger = logging.getLogger('file')
-
 
 @pytest.fixture
 def driver():
@@ -17,3 +17,4 @@ def driver():
     yield browser
     logger.info('Browser chrome has been closed.')
     browser.quit()
+
