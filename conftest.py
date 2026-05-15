@@ -11,6 +11,7 @@ logger = logging.getLogger('file')
 @pytest.fixture
 def driver():
     options = Options()
+    options.add_argument('--incognito')
     options.page_load_strategy = 'normal'
     browser = webdriver.Chrome(options=options); browser.implicitly_wait(30)
     logger.info('Browser chrome has been started.')
