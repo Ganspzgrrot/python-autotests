@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 import allure
 from selenium.webdriver.support.wait import WebDriverWait
+from tests.TheFinalProject.FinalProjectOnSelenium.functions.wait_until_on_xpath import wait_until
 import logging.config
 import logging
 
@@ -53,7 +54,7 @@ class TestAddToCart:
         with allure.step('Нажать на кнопку "Добавить в корзину"'):
             driver.find_element(By.XPATH, "//button[@name='add-to-cart']").click(); time.sleep(1.3)
         with allure.step('Нажать на кнопку "Корзина" в меню сайта пиццерии'):
-            wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="menu-item-29"]//a'))).click()
+            wait_until(driver,'//*[@id="menu-item-29"]//a').click()
         input_field = driver.find_element(By.CSS_SELECTOR, "input.qty")
         summ = driver.find_element(By.CSS_SELECTOR, 'strong > span.woocommerce-Price-amount.amount > bdi')
         current_text = driver.find_element(By.CSS_SELECTOR, "td.product-price span.woocommerce-Price-amount")
@@ -80,7 +81,7 @@ class TestAddToCart:
             driver.find_element(By.XPATH, "//input[@name='quantity']").send_keys('3')
         with allure.step('Нажать на кнопку "Добавить в корзину и перейти на страницу корзины, через кнопку "Корзина" в меню страницы'):
             driver.find_element(By.XPATH, "//button[@name='add-to-cart']").click(); time.sleep(1.3)
-            wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="menu-item-29"]//a'))).click()
+            wait_until(driver,'//*[@id="menu-item-29"]//a').click()
 
         with allure.step('Применение купона: в поле для ввода купона ввести промокод GIVEMEHALYAVA и нажать кнопку "Применить купон"'):
             logger.info('Применяем купон....')
@@ -112,7 +113,7 @@ class TestAddToCart:
             driver.find_element(By.XPATH, "//input[@name='quantity']").send_keys('3')
         with allure.step('Нажать кнопку "Добавить в корзину" и перейти в корзину через кнопку "Корзина" в меню страницы'):
             driver.find_element(By.XPATH, "//button[@name='add-to-cart']").click(); time.sleep(1.3)
-            wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="menu-item-29"]//a'))).click()
+            wait_until(driver, '//*[@id="menu-item-29"]//a').click()
 
         with allure.step('Применяем купон: в поле для ввода купона вписать значение "DC120" и нажать кнопку "применить купон'):
             logger.info('Применяем купон....')

@@ -8,6 +8,8 @@ import allure
 from selenium.webdriver.support.wait import WebDriverWait
 import logging.config
 import logging
+from tests.TheFinalProject.FinalProjectOnSelenium.functions.wait_until_on_xpath import wait_xpath
+from tests.TheFinalProject.FinalProjectOnSelenium.functions.wait_until_on_css_selector import wait_css
 
 logging.config.fileConfig('logging.ini')
 logger = logging.getLogger('file')
@@ -20,11 +22,11 @@ class TestPromoValidation:
             driver.get('https://pizzeria.skillbox.cc/')
             logger.info('Запускаем браузер в полный экран....')
             driver.maximize_window()
-            wait = WebDriverWait(driver, 10)
+
             time.sleep(3)
 
         with allure.step('Нажать ссылку "Войти" в правом верхнем углу сайта пиццерии'):
-            wait.until(EC.presence_of_element_located((By.XPATH, "//a[contains(text(),'Войти')]"))).click()
+            wait_xpath(driver, "//a[contains(text(),'Войти')]").click()
         with allure.step('В поле "Имя пользователя или почта*" вписать "helmutpzh"'):
             driver.find_element(By.XPATH, "//input[@id='username']").send_keys('helmutpzh')
         with allure.step('В поле "Пароль*" вписать "1234567890-"'):
@@ -32,22 +34,22 @@ class TestPromoValidation:
         with allure.step('Нажать кнопку "ВОЙТИ"'):
             driver.find_element(By.XPATH, "//button[@name='login']").click()
         with allure.step('Нажать кнопку "КОРЗИНА" в меню пиццерии'):
-            wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "li[id='menu-item-29'] a"))).click()
+            wait_css(driver, "li[id='menu-item-29'] a").click()
         driver.get('https://pizzeria.skillbox.cc/product/%d0%bf%d0%b8%d1%86%d1%86%d0%b0-4-%d0%b2-1/')
         with allure.step('Нажать кнопку "В КОРЗИНУ"'):
             driver.find_element(By.XPATH, "//button[contains(text(),'В корзину')]").click()
         with allure.step('Нажать кнопку "ПОДРОБНЕЕ" для перехода в корзину'):
-            wait.until(EC.presence_of_element_located((By.XPATH, "//a[contains(text(),'Подробнее')]"))).click()
+            wait_xpath(driver, "//a[contains(text(),'Подробнее')]").click()
         with allure.step('В поле "Введите код купона..." ввести промокод GIVEMEHALYAVA'):
-            wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='coupon_code']"))).send_keys('GIVEMEHALYAVA')
-            wait.until(EC.presence_of_element_located((By.XPATH, "//a[contains(text(),'ПЕРЕЙТИ К ОПЛАТЕ')]"))).click()
+            wait_xpath(driver, "//input[@id='coupon_code']").send_keys('GIVEMEHALYAVA')
+            wait_xpath(driver, "//a[contains(text(),'ПЕРЕЙТИ К ОПЛАТЕ')]").click()
 
         with allure.step('На форме оформления заказа нажать кнопку "Нажмите для ввода купона"'):
-            wait.until(EC.presence_of_element_located((By.XPATH, "//a[contains(text(),'Нажмите для ввода купона')]"))).click()
-            input_promo_code = wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='coupon_code']")))
+            wait_xpath(driver, "//a[contains(text(),'Нажмите для ввода купона')]").click()
+            input_promo_code = wait_xpath(driver, "//input[@id='coupon_code']")
             input_promo_code.send_keys('GIVEMEHALYAVA')
             driver.find_element(By.XPATH, "//button[contains(text(),'Применить купон')]").click()
-            error_text = wait.until(EC.presence_of_element_located((By.XPATH, "//li[normalize-space()='Coupon code already applied!']"))).text
+            error_text = wait_xpath(driver, "//li[normalize-space()='Coupon code already applied!']").text
         logger.info('Запускаем процесс валидации')
         with allure.step('Убедиться, что появилась ошибка при вводе уже примененного ранее промокода "Coupon code already applied!"'):
             assert "coupon code already applied!" == error_text.lower()

@@ -18,6 +18,7 @@ class TestHomePage:
     def test_home_page_loaded(self, driver):
         with allure.step('Отрыть главную страницу пиццерии https://pizzeria.skillbox.cc'):
             driver.get("https://pizzeria.skillbox.cc")
+            driver.maximize_window()
             wait = WebDriverWait(driver, 10)
 
         logger.info('Создаем список всех локаторов - загружаемых элементов страницы....')

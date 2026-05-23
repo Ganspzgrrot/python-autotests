@@ -17,7 +17,8 @@ class TestSocialLInks:
         with allure.step('Отрыть главную страницу пиццерии https://pizzeria.skillbox.cc'):
             driver.get("https://pizzeria.skillbox.cc")
             wait = WebDriverWait(driver, 10)
-        time.sleep(3)
+            driver.maximize_window()
+
         links = [
             ("Facebook", "//a[normalize-space()='Facebook']", "facebook.com"),
             ("VK", "//a[contains(text(),'ВКонтакте')]", "vk.com"),
@@ -28,3 +29,7 @@ class TestSocialLInks:
             href = element.get_attribute('href')
             assert expected_domain in href, f"Ошибка в ссылке {name}: {href}"
 
+    def test_click_all_links_in_basement(self, driver):
+        with allure.step('Отрыть главную страницу пиццерии https://pizzeria.skillbox.cc'):
+            driver.get("https://pizzeria.skillbox.cc")
+            wait = WebDriverWait(driver, 10)

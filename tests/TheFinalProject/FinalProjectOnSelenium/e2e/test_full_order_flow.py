@@ -20,7 +20,6 @@ class TestFullOrderFlow:
             logger.info('Подготовка браузера....')
             driver.get('https://pizzeria.skillbox.cc/my-account/')
             driver.maximize_window()
-            wait = WebDriverWait(driver, 10)
 
         #logger.info('Запущен процесс регистрации нового пользователя....')                            # Раскомментируйте, если запускаете автотест в первый раз!
         #with allure.step('Нажать кнопку "Зарегистрироваться"'):                                       #
