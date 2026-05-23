@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 import allure
 from selenium.webdriver.support.wait import WebDriverWait
-from tests.TheFinalProject.FinalProjectOnSelenium.functions.wait_until_on_xpath import wait_until
+from tests.TheFinalProject.FinalProjectOnSelenium.functions.wait_until_on_xpath import wait_xpath
 import logging.config
 import logging
 
@@ -19,12 +19,14 @@ class TestSocialLInks:
             driver.get("https://pizzeria.skillbox.cc/bonus/")
             logger.info('Запускаем браузер в полный экран....')
             driver.maximize_window()
-            wait = WebDriverWait(driver, 10)
 
         with allure.step('В поле "Имя" ввести валидное значение, например, Хельмут'):
-            wait_until(driver, "//input[@id='bonus_username']").send_keys('Хельмут')
+            wait_xpath(driver, "//input[@id='bonus_username']").send_keys('Хельмут')
         with allure.step('В поле "Телефон" ввести валидное значение, например, 89009009090'):
-            wait_until(driver, "//input[@id='bonus_phone']").send_keys('89009009090')
+            wait_xpath(driver, "//input[@id='bonus_phone']").send_keys('89009009090')
         with allure.step('Нажать кнопку "Оформить карту"'):
-            wait_until(driver, "//button[contains(text(),'Оформить карту')]")
-        time.sleep(3)
+            wait_xpath(driver, "//button[contains(text(),'Оформить карту')]")
+        with allure.step('Сообщение об ошибке "Поле Имя обязательно для заполнения" и "Поле Телефон обязательно для заполнения"'):
+            error_text = wait_xpath(driver, "//div[@id='bonus_content']/text()[contains(., 'Имя')]").text
+            logger.info(error_text)
+            assert '24135' == error_text
