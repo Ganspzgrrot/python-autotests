@@ -8,6 +8,7 @@ import allure
 from selenium.webdriver.support.wait import WebDriverWait
 import logging.config
 import logging
+from seleniumwire import webdriver
 
 logging.config.fileConfig('logging.ini')
 logger = logging.getLogger('file')
@@ -42,3 +43,4 @@ class TestCheckout:
         with allure.step('Появляется ошибка "Error: Имя пользователя обязательно."'):
             assert 'error: имя пользователя обязательно.' == current_text.lower()
             logger.info('Процесс валидации завершен, браузер закрыт.')
+

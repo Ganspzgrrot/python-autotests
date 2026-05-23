@@ -1,17 +1,14 @@
-from selenium.webdriver.common.by import By
-import allure
-from selenium.webdriver.support.wait import WebDriverWait
 import time
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
-import pytest
-from seleniumwire import webdriver
-
-
+from selenium.webdriver.common.by import By
+import allure
+from selenium.webdriver.support.wait import WebDriverWait
 import logging.config
 import logging
+
 logging.config.fileConfig('logging.ini')
 logger = logging.getLogger('file')
 
@@ -43,9 +40,20 @@ class TestPromoValidation:
             wait.until(EC.presence_of_element_located((By.XPATH, "//a[contains(text(),'Подробнее')]"))).click()
         with allure.step('В поле "Введите код купона..." ввести промокод GIVEMEHALYAVA'):
             wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='coupon_code']"))).send_keys('GIVEMEHALYAVA')
-        with allure.step('Нажать кнопку "ПРИМЕНИТЬ КУПОН" и перейти на страницу оформления заказа'):
-            wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "button[value='Применить купон']"))).click()
-            driver.get('https://pizzeria.skillbox.cc/checkout/')
+            wait.until(EC.presence_of_element_located((By.XPATH, "//a[contains(text(),'ПЕРЕЙТИ К ОПЛАТЕ')]"))).click()
+
+        with allure.step('На форме оформления заказа нажать кнопку "Нажмите для ввода купона"'):
+            wait.until(EC.presence_of_element_located((By.XPATH, "//a[contains(text(),'Нажмите для ввода купона')]"))).click()
+            input_promo_code = wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='coupon_code']")))
+            input_promo_code.send_keys('GIVEMEHALYAVA')
+            driver.find_element(By.XPATH, "//button[contains(text(),'Применить купон')]").click()
+            error_text = wait.until(EC.presence_of_element_located((By.XPATH, "//li[normalize-space()='Coupon code already applied!']"))).text
+        logger.info('Запускаем процесс валидации')
+        with allure.step('Убедиться, что появилась ошибка при вводе уже примененного ранее промокода "Coupon code already applied!"'):
+            assert "coupon code already applied!" == error_text.lower()
+        logger.info('Процесс валидации завершен, браузер закрыт.')
+
+
 
 
 
