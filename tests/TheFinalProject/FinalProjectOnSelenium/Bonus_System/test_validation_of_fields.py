@@ -1,14 +1,9 @@
-import time
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver import Keys
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.common.by import By
 import allure
 from selenium.webdriver.support.wait import WebDriverWait
 
-from tests.TheFinalProject.FinalProjectOnSelenium.functions.wait_until_on_css_selector import wait_css
-from tests.TheFinalProject.FinalProjectOnSelenium.functions.wait_until_on_xpath import wait_xpath
+from tests.TheFinalProject.FinalProjectOnSelenium.functions.wait_until_function_on_more_locators.wait_until_on_css_selector import wait_css
+from tests.TheFinalProject.FinalProjectOnSelenium.functions.wait_until_function_on_more_locators.wait_until_on_xpath import wait_xpath
 import logging.config
 import logging
 
