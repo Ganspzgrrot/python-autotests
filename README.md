@@ -1,0 +1,1 @@
+# Проект находится по пути tests/TheFinalProject/FinalProjectOnSelenium
