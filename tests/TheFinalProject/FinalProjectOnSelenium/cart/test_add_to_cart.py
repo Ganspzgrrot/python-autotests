@@ -15,24 +15,15 @@ class TestAddToCart:
     @allure.title('Проверка ненулевого количества товара в корзине')
     def test_add_pizza_to_cart(self, driver):
         cart_page = CartPage(driver)
-        with allure.step('Открыть главную страницу пиццерии https://pizzeria.skillbox.cc'):
-            cart_page.open()
-            logger.info('Запускаем браузер в полный экран....')
-            driver.maximize_window()
-            wait = WebDriverWait(driver, 10)
+        cart_page.open()
+        cart_page.max_win()
 
-        with allure.step('Нажать на карточку товара'):
-            logger.info('Ищем и нажимаем на карточку товара "Пицца «4 в 1»"....')
-            time.sleep(2)
-            cart_page.click_pizza_card()
-        with allure.step('Нажать на кнопку "Добавить в корзину"'):
-            logger.info('Ищем и нажимаем на кнопку "Добавить в корзину"....')
-            cart_page.add_to_cart()
-        with allure.step('Нажать на кнопку "Корзина" в меню сайта пиццерии'):
-            logger.info('Ищем и нажимаем на кнопку "Корзина", и осуществляем в нее переход....'); time.sleep(1.5)
-            cart_page.click_cart_button()
-            logger.info('Получаем список всех товаров из корзины....')
-            product_list = cart_page.list_products()
+        time.sleep(2)
+        cart_page.click_pizza_card()
+        cart_page.add_to_cart()
+
+        cart_page.click_cart_button()
+        product_list = cart_page.list_products()
 
         with allure.step('Запуск процесса валидации ненулевого количества товаров в корзине'):
             logger.info('Запускаем процесс валидации ненулевого количества товаров в корзине')
@@ -41,51 +32,41 @@ class TestAddToCart:
 
     @allure.title('Вычисление общей суммы товаров')
     def test_add_pizza_and_verify_total_amount(self, driver):
-        with allure.step('Открыть главную страницу пиццерии https://pizzeria.skillbox.cc'):
-            driver.get('https://pizzeria.skillbox.cc')
-            logger.info('Запускаем браузер в полный экран....')
-            driver.maximize_window()
-            wait = WebDriverWait(driver, 10)
+        cart_page = CartPage(driver)
+        cart_page.open()
+        cart_page.max_win()
 
         logger.info('Ищем нужные элементы, которые пригодятся для процесса валидации.....')
-        with allure.step('Нажать на карточку товара "Пицца 4 в 1"'):
-            driver.find_element(By.CSS_SELECTOR, "a[title='Пицца «4 в 1»']").click()
-        with allure.step('Нажать на кнопку "Добавить в корзину"'):
-            driver.find_element(By.XPATH, "//button[@name='add-to-cart']").click(); time.sleep(1.3)
-        with allure.step('Нажать на кнопку "Корзина" в меню сайта пиццерии'):
-            wait_xpath(driver,'//*[@id="menu-item-29"]//a').click()
-        input_field = driver.find_element(By.CSS_SELECTOR, "input.qty")
-        summ = driver.find_element(By.CSS_SELECTOR, 'strong > span.woocommerce-Price-amount.amount > bdi')
-        current_text = driver.find_element(By.CSS_SELECTOR, "td.product-price span.woocommerce-Price-amount")
+        cart_page.click_pizza_card()
+        cart_page.add_to_cart()
+        cart_page.click_cart_button()
+        input_field = cart_page.product_quantity()
+        summ = cart_page.total_amount()
+        summ = int(summ.text[0:3])
+        current_text = cart_page.product_price()
+
         step_value = input_field.get_attribute("step")
+        current_arg = int(current_text.text[0:3])
+        step_value = int(step_value)
 
         with allure.step('Проверка вычисления общей суммы всех товаров'):
             logger.info('Запускаем процесс валидации....')
-            assert int(current_text.text[0:3]) * int(step_value) == int(summ.text[0:3])
+            assert current_arg * step_value == summ
             logger.info('Процесс валидации завершен, браузер закрыт.')
 
     @allure.title('Применение 10% скидки при вводе промокода GIVEMEHALYAVA')
     def test_cart_promo_code_discount(self, driver):
-        with allure.step('Открыть главную страницу пиццерии https://pizzeria.skillbox.cc'):
-            driver.get('https://pizzeria.skillbox.cc')
-            logger.info('Запускаем браузер в полный экран....')
-            driver.maximize_window()
-            wait = WebDriverWait(driver, 10)
+        cart_page = CartPage(driver)
+        cart_page.open()
+        cart_page.max_win()
 
         logger.info('Добавляем товары в корзину для проверки работоспобности вычисления 10% скидки с применением промокода GIVMEHALYAVA....')
-        with allure.step('Нажать на карточку товара "Пицца 4 в 1"'):
-            driver.find_element(By.CSS_SELECTOR, "a[title='Пицца «4 в 1»']").click()
-        with allure.step('Очистить поле и выставить количество товаров 3'):
-            driver.find_element(By.XPATH, "//input[@name='quantity']").clear()
-            driver.find_element(By.XPATH, "//input[@name='quantity']").send_keys('3')
-        with allure.step('Нажать на кнопку "Добавить в корзину и перейти на страницу корзины, через кнопку "Корзина" в меню страницы'):
-            driver.find_element(By.XPATH, "//button[@name='add-to-cart']").click(); time.sleep(1.3)
-            wait_xpath(driver,'//*[@id="menu-item-29"]//a').click()
+        cart_page.click_pizza_card()
+        cart_page.clear_and_paste_value_in_field('3')
+        cart_page.add_to_cart()
+        cart_page.click_cart_button()
 
-        with allure.step('Применение купона: в поле для ввода купона ввести промокод GIVEMEHALYAVA и нажать кнопку "Применить купон"'):
-            logger.info('Применяем купон....')
-            driver.find_element(By.XPATH, "//input[@id='coupon_code']").send_keys('GIVEMEHALYAVA')
-            driver.find_element(By.XPATH, "//button[@name='apply_coupon']").click()
+        cart_page.coupon_application('GIVEMEHALYAVA')
 
         with allure.step("Подсчитываем корректное применение 10% скидки ко всем товарам по промокоду GIVEMEHALYAVA"):
             logger.info('Подсчитываем корректное применение 10% скидки ко всем товарам по промокоду GIVEMEHALYAVA....')
@@ -98,21 +79,15 @@ class TestAddToCart:
 
     @allure.title('Применение несуществующего промокода DC120')
     def test_cart_promo_code_dont_discount(self, driver):
+        cart_page = CartPage(driver)
         with allure.step('Открытие главной страницы пиццерии https://pizzeria.skillbox.cc'):
-            driver.get('https://pizzeria.skillbox.cc')
-            logger.info('Запускаем браузер в полный экран....')
-            driver.maximize_window()
-            wait = WebDriverWait(driver, 10)
+            cart_page.open()
+            cart_page.max_win()
 
-        logger.info('Добавляем товары в корзину для проверки работоспобности вычисления 10% скидки с применением промокода DC120....')
-        with allure.step('Нажать на карточку товара "Пицца 4 в 1"'):
-            driver.find_element(By.CSS_SELECTOR, "a[title='Пицца «4 в 1»']").click()
-        with allure.step('Очистить поле и выставить количество товаров 3'):
-            driver.find_element(By.XPATH, "//input[@name='quantity']").clear()
-            driver.find_element(By.XPATH, "//input[@name='quantity']").send_keys('3')
-        with allure.step('Нажать кнопку "Добавить в корзину" и перейти в корзину через кнопку "Корзина" в меню страницы'):
-            driver.find_element(By.XPATH, "//button[@name='add-to-cart']").click(); time.sleep(1.3)
-            wait_xpath(driver, '//*[@id="menu-item-29"]//a').click()
+        cart_page.click_pizza_card()
+        cart_page.clear_and_paste_value_in_field('3')
+        cart_page.add_to_cart()
+        cart_page.click_cart_button()
 
         with allure.step('Применяем купон: в поле для ввода купона вписать значение "DC120" и нажать кнопку "применить купон'):
             logger.info('Применяем купон....')
