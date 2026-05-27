@@ -1,0 +1,6 @@
+browser: Chrome
+Browser.Version: 149.0.7827.22
+Python.Version: 3.13
+Framework: Selenium
+Framework.Version: 4.44.0
+Test.Runner: PyTest
