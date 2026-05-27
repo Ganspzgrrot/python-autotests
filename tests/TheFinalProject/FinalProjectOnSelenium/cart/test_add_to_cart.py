@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 import allure
 from selenium.webdriver.support.wait import WebDriverWait
 from tests.TheFinalProject.FinalProjectOnSelenium.functions.wait_until_function_on_more_locators.wait_until_on_xpath import wait_xpath
+from tests.TheFinalProject.FinalProjectOnSelenium.Pages.cart_page.cart_page_model import CartPage
 import logging.config
 import logging
 
@@ -13,23 +14,25 @@ logger = logging.getLogger('file')
 class TestAddToCart:
     @allure.title('Проверка ненулевого количества товара в корзине')
     def test_add_pizza_to_cart(self, driver):
+        cart_page = CartPage(driver)
         with allure.step('Открыть главную страницу пиццерии https://pizzeria.skillbox.cc'):
-            driver.get('https://pizzeria.skillbox.cc')
+            cart_page.open()
             logger.info('Запускаем браузер в полный экран....')
             driver.maximize_window()
             wait = WebDriverWait(driver, 10)
 
         with allure.step('Нажать на карточку товара'):
             logger.info('Ищем и нажимаем на карточку товара "Пицца «4 в 1»"....')
-            driver.find_element(By.CSS_SELECTOR, "a[title='Пицца «4 в 1»']").click()
+            time.sleep(2)
+            cart_page.click_pizza_card()
         with allure.step('Нажать на кнопку "Добавить в корзину"'):
             logger.info('Ищем и нажимаем на кнопку "Добавить в корзину"....')
-            driver.find_element(By.XPATH, "//button[@name='add-to-cart']").click()
+            cart_page.add_to_cart()
         with allure.step('Нажать на кнопку "Корзина" в меню сайта пиццерии'):
             logger.info('Ищем и нажимаем на кнопку "Корзина", и осуществляем в нее переход....'); time.sleep(1.5)
-            driver.find_element(By.XPATH, '//*[@id="menu-item-29"]//a').click()
+            cart_page.click_cart_button()
             logger.info('Получаем список всех товаров из корзины....')
-            product_list = driver.find_elements(By.CSS_SELECTOR, "td.product-name")
+            product_list = cart_page.list_products()
 
         with allure.step('Запуск процесса валидации ненулевого количества товаров в корзине'):
             logger.info('Запускаем процесс валидации ненулевого количества товаров в корзине')
