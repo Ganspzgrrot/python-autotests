@@ -13,18 +13,13 @@ logger = logging.getLogger('file')
 class TestSocialLInks:
     def test_bonus_system(self, driver):
         bonus_page = BonusPage(driver)
-        with allure.step('Отрыть бонусную систему сайта пиццерии https://pizzeria.skillbox.cc/bonus/'):
-            bonus_page.open()
-            logger.info('Запускаем браузер в полный экран....')
-            driver.maximize_window()
-            wait = WebDriverWait(driver, 10)
+        bonus_page.open()
+        bonus_page.max_win()
+        wait = WebDriverWait(driver, 10)
 
-        with allure.step('В поле "Имя" ввести валидное значение, например, Хельмут'):
-            bonus_page.enter_username('Хельмут')
-        with allure.step('В поле "Телефон" ввести валидное значение, например, 89009009090'):
-            bonus_page.enter_phone('89009009090')
-        with allure.step('Нажать кнопку "Оформить карту"'):
-            bonus_page.click_submit()
+        bonus_page.enter_username('Хельмут')
+        bonus_page.enter_phone('89009009090')
+        bonus_page.click_submit()
         with allure.step('Сообщение об ошибке "Поле Имя обязательно для заполнения" и "Поле Телефон обязательно для заполнения"'):
             try:
                 wait.until(EC.alert_is_present())
@@ -36,18 +31,12 @@ class TestSocialLInks:
 
     def test_bonus_system_validation(self, driver):
         bonus_page = BonusPage(driver)
-        with allure.step('Отрыть бонусную систему сайта пиццерии https://pizzeria.skillbox.cc/bonus/'):
-            bonus_page.open()
-            logger.info('Запускаем браузер в полный экран....')
-            driver.maximize_window()
-            wait = WebDriverWait(driver, 10)
+        bonus_page.open()
+        bonus_page.max_win()
 
-        with allure.step('Поле "Имя" оставить пустым'):
-            bonus_page.enter_username('')
-        with allure.step('Поле "Телефон" оставить пустым'):
-            bonus_page.enter_phone('')
-        with allure.step('Нажать кнопку "Оформить карту"'):
-            bonus_page.click_submit()
+        bonus_page.enter_username_without_allure_step()
+        bonus_page.enter_phone_without_allure_step()
+        bonus_page.click_submit()
         with allure.step('Сообщение об ошибке "Поле Телефон обязательно для заполнения"'):
             error_text_phone = bonus_page.get_error_message()
             logger.info(error_text_phone)
