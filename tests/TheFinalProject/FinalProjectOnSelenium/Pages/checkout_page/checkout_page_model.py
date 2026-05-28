@@ -21,7 +21,13 @@ class CheckoutPage:
         self.LOGIN_LINK = "//a[text()='Авторизуйтесь']"
         self.LOGIN_BUTTON = "//button[@name='login']"
         self.ERROR_TEXT = '//*[@id="post-24"]//li'
-
+        self.FIELD_USERNAME_OR_EMAIL = "//input[@id='username']"
+        self.PASSWORD_FIELD = "//input[@id='password']"
+        self.LEARN_MORE_BUTTON = "//a[contains(text(),'Подробнее')]"
+        self.COUPON_CODE_FIELD = "//input[@id='coupon_code']"
+        self.CLICK_ON_LINK_TO_ENTER_COUPON = "//a[contains(text(),'Нажмите для ввода купона')]"
+        self.APPLY_COUPON_BUTTON = "//button[contains(text(),'Применить купон')]"
+        self.COUPON_CODE_ALREADY_APPLIED_TEXT = "//li[normalize-space()='Coupon code already applied!']"
 
     def max_win(self):
         self.driver.maximize_window()
@@ -64,3 +70,28 @@ class CheckoutPage:
 
     def get_error_text(self):
         return wait_xpath(self.driver, self.ERROR_TEXT).text
+
+    def fill_username_or_email_field(self, username_or_email):
+        with allure.step('В поле "Имя пользователя или почта*" вписать "helmutpzh"'):
+            return wait_xpath(self.driver, self.FIELD_USERNAME_OR_EMAIL).send_keys(username_or_email)
+    def fill_password_field(self, password):
+        with allure.step('В поле "Пароль*" вписать "1234567890-"'):
+            return wait_xpath(self.driver, self.PASSWORD_FIELD).send_keys(password)
+    def press_learn_more_button(self):
+        with allure.step('Нажать кнопку "ПОДРОБНЕЕ" для перехода в корзину'):
+            wait_xpath(self.driver, self.LEARN_MORE_BUTTON).click()
+
+    def fill_coupon_code_field(self, coupon):
+        with allure.step('В поле "Введите код купона..." ввести промокод GIVEMEHALYAVA'):
+            wait_xpath(self.driver, self.COUPON_CODE_FIELD).send_keys(coupon)
+
+    def click_on_link_for_enter_coupon(self):
+        with allure.step('На форме оформления заказа нажать кнопку "Нажмите для ввода купона"'):
+            wait_xpath(self.driver, self.CLICK_ON_LINK_TO_ENTER_COUPON).click()
+
+    def apply_coupon(self):
+        with allure.step('Нажать кнопку "Применить купон"'):
+            wait_xpath(self.driver, self.APPLY_COUPON_BUTTON).click()
+
+    def get_text_code_already_applied(self):
+        return wait_xpath(self.driver, self.COUPON_CODE_ALREADY_APPLIED_TEXT).text

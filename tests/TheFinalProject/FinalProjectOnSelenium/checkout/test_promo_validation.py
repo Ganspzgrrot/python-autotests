@@ -17,26 +17,21 @@ class TestPromoValidation:
         checkout_page = CheckoutPage(driver)
         checkout_page.open_login_page()
         checkout_page.max_win()
-        with allure.step('В поле "Имя пользователя или почта*" вписать "helmutpzh"'):
-            driver.find_element(By.XPATH, "//input[@id='username']").send_keys('helmutpzh')
-        with allure.step('В поле "Пароль*" вписать "1234567890-"'):
-            driver.find_element(By.XPATH, "//input[@id='password']").send_keys('1234567890-')
+
+        checkout_page.fill_username_or_email_field('helmutpzh')
+        checkout_page.fill_password_field('1234567890-')
         checkout_page.click_login_button()
         checkout_page.click_cart_button_in_menu()
         checkout_page.open_pizza_card_page()
         checkout_page.add_to_cart()
-        with allure.step('Нажать кнопку "ПОДРОБНЕЕ" для перехода в корзину'):
-            wait_xpath(driver, "//a[contains(text(),'Подробнее')]").click()
-        with allure.step('В поле "Введите код купона..." ввести промокод GIVEMEHALYAVA'):
-            wait_xpath(driver, "//input[@id='coupon_code']").send_keys('GIVEMEHALYAVA')
-            checkout_page.click_go_to_payment_button()
+        checkout_page.press_learn_more_button()
+        checkout_page.fill_coupon_code_field('GIVEMEHALYAVA')
+        checkout_page.click_go_to_payment_button()
+        checkout_page.click_on_link_for_enter_coupon()
+        checkout_page.fill_coupon_code_field('GIVEMEHALYAVA')
+        driver.find_element(By.XPATH, "//button[contains(text(),'Применить купон')]").click()
+        error_text = checkout_page.get_text_code_already_applied()
 
-        with allure.step('На форме оформления заказа нажать кнопку "Нажмите для ввода купона"'):
-            wait_xpath(driver, "//a[contains(text(),'Нажмите для ввода купона')]").click()
-            input_promo_code = wait_xpath(driver, "//input[@id='coupon_code']")
-            input_promo_code.send_keys('GIVEMEHALYAVA')
-            driver.find_element(By.XPATH, "//button[contains(text(),'Применить купон')]").click()
-            error_text = wait_xpath(driver, "//li[normalize-space()='Coupon code already applied!']").text
         logger.info('Запускаем процесс валидации')
         with allure.step('Убедиться, что появилась ошибка при вводе уже примененного ранее промокода "Coupon code already applied!"'):
             assert "coupon code already applied!" == error_text.lower()
