@@ -5,6 +5,7 @@ import logging.config
 import logging
 from tests.TheFinalProject.FinalProjectOnSelenium.functions.wait_until_function_on_more_locators.wait_until_on_xpath import wait_xpath
 from tests.TheFinalProject.FinalProjectOnSelenium.functions.wait_until_function_on_more_locators.wait_until_on_css_selector import wait_css
+from tests.TheFinalProject.FinalProjectOnSelenium.Pages.checkout_page.checkout_page_model import CheckoutPage
 
 logging.config.fileConfig('logging.ini')
 logger = logging.getLogger('file')
@@ -13,15 +14,9 @@ logger = logging.getLogger('file')
 class TestPromoValidation:
     @allure.title('Поведение системы при вводе некорректного промокода')
     def test_invalid_promo_blocked(self, driver):
-        with allure.step('Открыть карточку товара(Пицца 4 в 1)'):
-            driver.get('https://pizzeria.skillbox.cc/')
-            logger.info('Запускаем браузер в полный экран....')
-            driver.maximize_window()
-
-            time.sleep(3)
-
-        with allure.step('Нажать ссылку "Войти" в правом верхнем углу сайта пиццерии'):
-            wait_xpath(driver, "//a[contains(text(),'Войти')]").click()
+        checkout_page = CheckoutPage(driver)
+        checkout_page.open_login_page()
+        checkout_page.max_win()
         with allure.step('В поле "Имя пользователя или почта*" вписать "helmutpzh"'):
             driver.find_element(By.XPATH, "//input[@id='username']").send_keys('helmutpzh')
         with allure.step('В поле "Пароль*" вписать "1234567890-"'):
