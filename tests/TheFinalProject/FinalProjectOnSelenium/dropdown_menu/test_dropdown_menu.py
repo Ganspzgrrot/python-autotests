@@ -40,7 +40,7 @@ class TestDropdownMenu:
 
         dropdown_menu.cursor_move_to_menu()
         previous_url = driver.current_url
-        dropdown_menu.select_deserts_item()
+        dropdown_menu.select_drinks_item()
         cur_url = driver.current_url
         logger.info(f"Прошлый URL: {previous_url} | Текущий URL {cur_url}")
         assert previous_url != cur_url and cur_url == "https://pizzeria.skillbox.cc/product-category/menu/drinks/"
