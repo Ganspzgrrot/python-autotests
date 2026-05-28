@@ -21,18 +21,15 @@ class TestPromoValidation:
             driver.find_element(By.XPATH, "//input[@id='username']").send_keys('helmutpzh')
         with allure.step('В поле "Пароль*" вписать "1234567890-"'):
             driver.find_element(By.XPATH, "//input[@id='password']").send_keys('1234567890-')
-        with allure.step('Нажать кнопку "ВОЙТИ"'):
-            driver.find_element(By.XPATH, "//button[@name='login']").click()
-        with allure.step('Нажать кнопку "КОРЗИНА" в меню пиццерии'):
-            wait_css(driver, "li[id='menu-item-29'] a").click()
-        driver.get('https://pizzeria.skillbox.cc/product/%d0%bf%d0%b8%d1%86%d1%86%d0%b0-4-%d0%b2-1/')
-        with allure.step('Нажать кнопку "В КОРЗИНУ"'):
-            driver.find_element(By.XPATH, "//button[contains(text(),'В корзину')]").click()
+        checkout_page.click_login_button()
+        checkout_page.click_cart_button_in_menu()
+        checkout_page.open_pizza_card_page()
+        checkout_page.add_to_cart()
         with allure.step('Нажать кнопку "ПОДРОБНЕЕ" для перехода в корзину'):
             wait_xpath(driver, "//a[contains(text(),'Подробнее')]").click()
         with allure.step('В поле "Введите код купона..." ввести промокод GIVEMEHALYAVA'):
             wait_xpath(driver, "//input[@id='coupon_code']").send_keys('GIVEMEHALYAVA')
-            wait_xpath(driver, "//a[contains(text(),'ПЕРЕЙТИ К ОПЛАТЕ')]").click()
+            checkout_page.click_go_to_payment_button()
 
         with allure.step('На форме оформления заказа нажать кнопку "Нажмите для ввода купона"'):
             wait_xpath(driver, "//a[contains(text(),'Нажмите для ввода купона')]").click()
