@@ -3,6 +3,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
+from tests.TheFinalProject.FinalProjectOnSelenium.Pages.home_page_page.clickable_social_links_models import ClickableSocialLinks
 from selenium.webdriver.common.by import By
 import allure
 from selenium.webdriver.support.wait import WebDriverWait
@@ -16,10 +17,9 @@ logger = logging.getLogger('file')
 class TestSocialLInks:
     @allure.title('Подвал сайта: Кликабельность и работоспособность ссылок под блоком "Контактная информация"')
     def test_click_social_links(self, driver):
-        with allure.step('Отрыть главную страницу пиццерии https://pizzeria.skillbox.cc'):
-            driver.get("https://pizzeria.skillbox.cc")
-            wait = WebDriverWait(driver, 10)
-            driver.maximize_window()
+        social_links = ClickableSocialLinks(driver)
+        social_links.open()
+        social_links.max_win()
 
         links = [
             ("Facebook", "//a[normalize-space()='Facebook']", "facebook.com"),
@@ -32,77 +32,17 @@ class TestSocialLInks:
             assert expected_domain in href, f"Ошибка в ссылке {name}: {href}"
     @allure.title('Подвал сайта: Кликабельность и работоспособность ссылок под блоком "Страницы сайта"')
     def test_click_all_links_in_basement(self, driver):
-        with allure.step('Отрыть главную страницу пиццерии https://pizzeria.skillbox.cc'):
-            driver.get("https://pizzeria.skillbox.cc")
-            wait = WebDriverWait(driver, 10)
+        social_links = ClickableSocialLinks(driver)
+        social_links.open()
+        social_links.max_win()
 
-        with allure.step('Нажать ссылку "Акции"'):
-            previous_url = driver.current_url
-            driver.find_element(By.XPATH, "//li[@class='page_item page-item-394']//a[contains(text(),'Акции')]").click()
-            cur_url = driver.current_url
-            logger.info(f'All URL -> ({previous_url} | {cur_url})')
-            assert previous_url != cur_url
-            driver.get('https://pizzeria.skillbox.cc/')
-        with allure.step('Нажать кнопку "Бонусная программа"'):
-            previous_url = driver.current_url
-            driver.find_element(By.XPATH, "//li[@class='page_item page-item-359']//a[contains(text(),'Бонусная программа')]").click()
-            cur_url = driver.current_url
-            logger.info(f'All URL -> ({previous_url} | {cur_url})')
-            assert previous_url != cur_url
-            driver.get('https://pizzeria.skillbox.cc/')
-        with allure.step('Нажать кнопку "Все товары"'):
-            previous_url = driver.current_url
-            driver.find_element(By.XPATH, "//a[contains(text(),'Все товары')]").click()
-            cur_url = driver.current_url
-            logger.info(f'All URL -> ({previous_url} | {cur_url})')
-            assert previous_url != cur_url
-            driver.get('https://pizzeria.skillbox.cc/')
-        with allure.step('Нажать кнопку "Главная"'):
-            previous_url = driver.current_url
-            driver.find_element(By.XPATH, "//li[@class='page_item page-item-39 current_page_item']//a[contains(text(),'Главная')]").click()
-            cur_url = driver.current_url
-            logger.info(f'All URL -> ({previous_url} | {cur_url})')
-            assert previous_url == cur_url
-            driver.get('https://pizzeria.skillbox.cc/')
-        with allure.step('Нажать кнопку "Доставка и оплата"'):
-            previous_url = driver.current_url
-            driver.find_element(By.XPATH, "//li[@class='page_item page-item-376']//a[contains(text(),'Доставка и оплата')]").click()
-            cur_url = driver.current_url
-            logger.info(f'All URL -> ({previous_url} | {cur_url})')
-            assert previous_url != cur_url
-            driver.get('https://pizzeria.skillbox.cc/')
-        with allure.step('Нажать кнопку "Корзина"'):
-            previous_url = driver.current_url
-            driver.find_element(By.XPATH, "//li[@class='page_item page-item-20']//a[contains(text(),'Корзина')]").click()
-            cur_url = driver.current_url
-            logger.info(f'All URL -> ({previous_url} | {cur_url})')
-            assert previous_url != cur_url
-            driver.get('https://pizzeria.skillbox.cc/')
-        with allure.step('Нажать кнопку "Мой аккаунт"'):
-            previous_url = driver.current_url
-            driver.find_element(By.XPATH, "//li[@class='page_item page-item-22']//a[contains(text(),'Мой аккаунт')]").click()
-            cur_url = driver.current_url
-            logger.info(f'All URL -> ({previous_url} | {cur_url})')
-            assert previous_url != cur_url
-            driver.get('https://pizzeria.skillbox.cc/')
-        with allure.step('Нажать кнопку "О нас"'):
-            previous_url = driver.current_url
-            driver.find_element(By.XPATH, "//li[@class='page_item page-item-378']//a[contains(text(),'О нас')]").click()
-            cur_url = driver.current_url
-            logger.info(f'All URL -> ({previous_url} | {cur_url})')
-            assert previous_url != cur_url
-            driver.get('https://pizzeria.skillbox.cc/')
-        with allure.step('Нажать кнопку "Оформление заказа"'):
-            previous_url = driver.current_url
-            driver.find_element(By.CSS_SELECTOR, "li[class='page_item page-item-24'] a").click()
-            cur_url = driver.current_url
-            logger.info(f'All URL -> ({previous_url} | {cur_url})')
-            assert previous_url != cur_url
-            driver.get('https://pizzeria.skillbox.cc/')
-        with allure.step('Нажать кнопку "Регистрация"'):
-            previous_url = driver.current_url
-            driver.find_element(By.XPATH, "//a[contains(text(),'Регистрация')]").click()
-            cur_url = driver.current_url
-            logger.info(f'All URL -> ({previous_url} | {cur_url})')
-            assert previous_url != cur_url
-            driver.get('https://pizzeria.skillbox.cc/')
+        social_links.validation_shares_link()
+        social_links.validation_bonus_program_link()
+        social_links.validation_all_products_link()
+        social_links.validation_main_link()
+        social_links.validation_delivery_and_payment_link()
+        social_links.validation_cart_link()
+        social_links.validation_my_account_link()
+        social_links.validation_about_us_link()
+        social_links.validation_place_order()
+        social_links.validation_registration_link()

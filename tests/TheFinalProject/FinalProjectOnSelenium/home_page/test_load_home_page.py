@@ -3,6 +3,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
+from tests.TheFinalProject.FinalProjectOnSelenium.Pages.home_page_page.load_home_page_models import LoadHomePage
 from selenium.webdriver.common.by import By
 import allure
 from selenium.webdriver.support.wait import WebDriverWait
@@ -16,10 +17,10 @@ logger = logging.getLogger('file')
 class TestHomePage:
     @allure.title('Загрузка всех элементов страницы')
     def test_home_page_loaded(self, driver):
-        with allure.step('Отрыть главную страницу пиццерии https://pizzeria.skillbox.cc'):
-            driver.get("https://pizzeria.skillbox.cc")
-            driver.maximize_window()
-            wait = WebDriverWait(driver, 10)
+        load_home_page = LoadHomePage(driver)
+        load_home_page.open()
+        load_home_page.max_win()
+        wait = WebDriverWait(driver, 10)
 
         logger.info('Создаем список всех локаторов - загружаемых элементов страницы....')
         main_page_locators = [
@@ -34,4 +35,4 @@ class TestHomePage:
                 counter += 1
                 assert wait.until(EC.presence_of_element_located(locator))
                 logger.info(f'Элемент {counter}: загружен успешно')
-            logger.info('Процесс валидации завершен, браузер закрыт.')
+            logger.info(f'Процесс валидации завершен, браузер закрыт. Загружено элементов: {counter}')
