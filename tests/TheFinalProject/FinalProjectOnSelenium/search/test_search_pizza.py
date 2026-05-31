@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 import allure
 from selenium.webdriver.support.wait import WebDriverWait
+from tests.TheFinalProject.FinalProjectOnSelenium.Pages.search_pizza_page.search_pizza_models import SearchPizza
 import logging.config
 import logging
 
@@ -14,17 +15,15 @@ logger = logging.getLogger('file')
 
 class TestSearchPizza:
     def test_search_pizza_and_validate(self, driver):
-        driver.get('https://pizzeria.skillbox.cc')
-        driver.maximize_window()
+        search_pizza = SearchPizza(driver)
+        search_pizza.open()
+        search_pizza.max_win()
 
-        logger.info('Ищем локатор поля поиска и вводим в него значение "Рай...."')
-        driver.find_element(By.XPATH, "//input[@name='s']").send_keys('Рай', Keys.ENTER)
-        logger.info('Извлекаем текст из заголовка пиццы(Пицца «Рай»)....')
-        current_text_title = driver.find_element(By.XPATH, "//h1[text()='Пицца «Рай»']")
-        logger.info('Извлекаем текст "Пицца «Рай»" из меню навигации "Все товары"')
-        current_text_on_navigation_bar = driver.find_element(By.XPATH, "//span[text()='Пицца «Рай»']")
+        search_pizza.click_pizza_rai()
+        current_text_title = search_pizza.pizza_rai_text()
+        current_text_on_navigation_bar = search_pizza.pizza_rai_text_on_navigation_bar()
 
         logger.info('Запускаем процесс валидации соответствия пиццы раннее веденному запросу...')
-        assert 'рай' in current_text_title.text.lower()
-        assert 'рай' in current_text_on_navigation_bar.text.lower()
+        assert 'рай' in current_text_title
+        assert 'рай' in current_text_on_navigation_bar
         logger.info('Процесс валидации завершен, браузер закрыт.')
