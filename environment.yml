@@ -9,6 +9,7 @@ dependencies:
   - pip
   - pip:
     - webdriver-manager
+    - allure-pytest
 variables:
   browser: "chrome"
   Browser.Version: "120.0"

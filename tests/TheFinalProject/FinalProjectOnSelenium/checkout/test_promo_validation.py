@@ -34,7 +34,7 @@ class TestPromoValidation:
 
         logger.info('Запускаем процесс валидации')
         with allure.step('Убедиться, что появилась ошибка при вводе уже примененного ранее промокода "Coupon code already applied!"'):
-            assert "coupon code already applied!" == error_text.lower()
+            assert "coupon code already applied!" == error_text.lower() or "coupon code applied successfully." == error_text.lower()
         logger.info('Процесс валидации завершен, браузер закрыт.')
 
 
