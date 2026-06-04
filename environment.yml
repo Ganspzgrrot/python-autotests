@@ -1,6 +1,15 @@
-browser: Chrome
-Browser.Version: 149.0.7827.22
-Python.Version: 3.13
-Framework: Selenium
-Framework.Version: 4.44.0
-Test.Runner: PyTest
+name: python_autotest_env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.13
+  - pytest
+  - selenium
+  - pip
+  - pip:
+    - webdriver-manager
+variables:
+  browser: "chrome"
+  Browser.Version: "120.0"
+  Python.Version: "3.13"
