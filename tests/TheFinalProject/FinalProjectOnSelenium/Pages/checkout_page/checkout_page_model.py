@@ -1,3 +1,5 @@
+import time
+
 from tests.TheFinalProject.FinalProjectOnSelenium.functions.wait_until_function_on_more_locators.wait_until_on_css_selector import wait_css
 from tests.TheFinalProject.FinalProjectOnSelenium.functions.wait_until_function_on_more_locators.wait_until_on_xpath import wait_xpath
 from tests.TheFinalProject.FinalProjectOnSelenium.functions.wait_until_function_on_more_locators.wait_until_on_css_selector import wait_css_all_elements
@@ -94,4 +96,5 @@ class CheckoutPage:
             wait_xpath(self.driver, self.APPLY_COUPON_BUTTON).click()
 
     def get_text_code_already_applied(self):
-        return wait_xpath(self.driver, self.COUPON_CODE_ALREADY_APPLIED_TEXT).text
+        error_text = wait_xpath(self.driver, self.COUPON_CODE_ALREADY_APPLIED_TEXT).text
+        return error_text
