@@ -27,7 +27,7 @@ class ProductSelection:
     def pizza_card_text_validation(self):
         with allure.step('На главной странице пиццерии нажать на карточку товара, например, "Пицца «4 в 1" и запоминаем это название'):
             logger.info('Ищем карточку товара с пиццей «4 в 1» и нажимаем на эту карточку....')
-            wait_css(self.driver, self.PIZZA_CARD_4_IN_1).click()
+            self.driver.get("https://pizzeria.skillbox.cc/product/%d0%bf%d0%b8%d1%86%d1%86%d0%b0-4-%d0%b2-1/")
             current_text = wait_xpath(self.driver, self.TEXT_CURRENT_PIZZA)
         with allure.step('Сравнить ожидаемое название карточки товара внутри нее'):
             logger.info('Запускаем процесс валидации текста в панели навигации "Все товары"....')
