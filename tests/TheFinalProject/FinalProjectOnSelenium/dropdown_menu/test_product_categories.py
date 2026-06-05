@@ -21,14 +21,12 @@ class TestDropdownMenu:
         dropdown_menu = DropdownMenu(driver)
         with allure.step('Открыть страницу по URL https://pizzeria.skillbox.cc/product-category/menu/pizza/'):
             dropdown_menu.open()
-            dropdown_menu.open()
+            dropdown_menu.max_win()
 
         with allure.step('Нажать кнопку "Десерты"'):
             dropdown_menu.click_and_validate_item_deserts()
         with allure.step('Нажать кнопку "Каталог"'):
             dropdown_menu.click_and_validate_item_catalog()
-        with allure.step('Нажать кнопку "Меню"'):
-            dropdown_menu.click_and_validate_item_menu()
         with allure.step('Нажать кнопку "Напитки"'):
             dropdown_menu.click_and_validate_item_drinks()
             

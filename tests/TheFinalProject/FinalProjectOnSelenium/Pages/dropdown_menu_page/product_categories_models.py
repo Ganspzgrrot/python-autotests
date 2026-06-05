@@ -30,27 +30,20 @@ class DropdownMenu:
 
     def click_and_validate_item_deserts(self):
         previous_url = self.driver.current_url
-        wait_xpath(self.driver, self.ITEM_DESERTS).click()
+        ItemDeserts = wait_xpath(self.driver, self.ITEM_DESERTS); ItemDeserts.click()
         cur_url = self.driver.current_url
         assert previous_url != cur_url and cur_url == "https://pizzeria.skillbox.cc/product-category/menu/deserts/"
         self.driver.get(self.MENU_PIZZA_URL)
 
     def click_and_validate_item_catalog(self):
         previous_url = self.driver.current_url
-        wait_xpath(self.driver, self.ITEM_CATALOG).click()
+        ItemCatalog = wait_xpath(self.driver, self.ITEM_CATALOG); ItemCatalog.click()
         cur_url = self.driver.current_url
         assert previous_url != cur_url and cur_url == "https://pizzeria.skillbox.cc/product-category/catalog/"
         self.driver.get(self.MENU_PIZZA_URL)
 
-    def click_and_validate_item_menu(self):
-        previous_url = self.driver.current_url
-        wait_xpath(self.driver, self.ITEM_MENU).click()
-        cur_url = self.driver.current_url
-        assert previous_url != cur_url and cur_url == "https://pizzeria.skillbox.cc/product-category/menu/"
-        self.driver.get(self.MENU_PIZZA_URL)
-
     def click_and_validate_item_drinks(self):
         previous_url = self.driver.current_url
-        wait_xpath(self.driver, self.ITEM_DRINKS).click()
+        ItemDrinks = wait_xpath(self.driver, self.ITEM_DRINKS); ItemDrinks.click()
         cur_url = self.driver.current_url
         assert previous_url != cur_url and cur_url == "https://pizzeria.skillbox.cc/product-category/menu/drinks/"
