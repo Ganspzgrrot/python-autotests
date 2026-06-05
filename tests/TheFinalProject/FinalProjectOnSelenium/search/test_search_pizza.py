@@ -14,6 +14,7 @@ logging.config.fileConfig('logging.ini')
 logger = logging.getLogger('file')
 
 class TestSearchPizza:
+    @allure.title("Поиск: соответствие карточек товаров поисковому запросу")
     def test_search_pizza_and_validate(self, driver):
         search_pizza = SearchPizza(driver)
         search_pizza.open()

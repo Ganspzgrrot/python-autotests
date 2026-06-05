@@ -35,7 +35,7 @@ class CartPage:
     def click_pizza_card(self):
         with allure.step('Нажать на карточку товара'):
             logger.info('Ищем и нажимаем на карточку товара "Пицца «4 в 1»"....')
-            wait_css(self.driver, self.PIZZA_ELEMENT).click()
+            self.driver.get("https://pizzeria.skillbox.cc/product/%d0%bf%d0%b8%d1%86%d1%86%d0%b0-4-%d0%b2-1/")
 
     def add_to_cart(self):
         with allure.step('Нажать на кнопку "Добавить в корзину"'):

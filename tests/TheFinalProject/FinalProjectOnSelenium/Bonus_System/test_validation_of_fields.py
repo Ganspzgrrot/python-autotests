@@ -11,6 +11,7 @@ logging.config.fileConfig('logging.ini')
 logger = logging.getLogger('file')
 
 class TestSocialLInks:
+    @allure.title('Авторизация: Обязательные поля "Имя" и "Телефон" пустые')
     def test_bonus_system(self, driver):
         bonus_page = BonusPage(driver)
         bonus_page.open()
@@ -29,6 +30,7 @@ class TestSocialLInks:
             valid_text = bonus_page.get_success_message()
             assert 'Ваша карта оформлена!' == valid_text
 
+    @allure.title("Авторизация: поле 'Имя' или 'Телефон' пустое")
     def test_bonus_system_validation(self, driver):
         bonus_page = BonusPage(driver)
         bonus_page.open()
