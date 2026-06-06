@@ -29,8 +29,7 @@ class CheckoutPage:
         self.COUPON_CODE_FIELD = "//input[@id='coupon_code']"
         self.CLICK_ON_LINK_TO_ENTER_COUPON = "//a[contains(text(),'Нажмите для ввода купона')]"
         self.APPLY_COUPON_BUTTON = "//button[contains(text(),'Применить купон')]"
-        self.COUPON_CODE_ALREADY_APPLIED_TEXT = "//li[normalize-space()='Coupon code already applied!']"
-        self.COUPON_CODE_APPLIED_SUCCESSFULLY =  "//li[normalize-space()='Coupon code applied successfully.']"
+        self.COUPON_CODE_NICHTS_BEREIT = "ul[role='alert'] li"
 
     def max_win(self):
         self.driver.maximize_window()
@@ -97,7 +96,7 @@ class CheckoutPage:
             wait_xpath(self.driver, self.APPLY_COUPON_BUTTON).click()
 
     def get_text_code_already_applied(self):
-        error_text = wait_xpath(self.driver, self.COUPON_CODE_ALREADY_APPLIED_TEXT).text
+        error_text = wait_css(self.driver, self.COUPON_CODE_NICHTS_BEREIT).text
         if error_text == "Coupon code applied successfully.":
             return error_text
         elif error_text == "Coupon code already applied!":
